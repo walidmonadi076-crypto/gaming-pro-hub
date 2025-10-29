@@ -1,0 +1,19 @@
+{
+  "name": "gamics-gaming-website",
+  "version": "1.0.0",
+  "description": "Gamics - A fully responsive gaming website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "gaming",
+    "website",
+    "responsive"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

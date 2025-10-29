@@ -17,37 +17,36 @@ function loadGameCards() {
 
             // بناء HTML لكل لعبة في المصفوفة
             games.forEach(game => {
-                htmlContent += `
-                    <li class="scrollbar-item">
-                        <div class="game-card featured-game-card">
-                            <figure class="card-banner img-holder" style="--width: 450; --height: 600;">
-                                <img src="${game.image}" width="450" height="600" loading="lazy" alt="${game.title}"
-                                    class="img-cover">
-                            </figure>
-                            <div class="card-content">
-                                <h4 class="h4">
-                                    <a href="#" class="card-title">${game.title}</a>
-                                </h4>
-                                <div class="card-meta">
-                                    <div class="card-meta-item">
-                                        <p class="card-subtitle">${game.category}</p>
-                                    </div>
-                                    <div class="card-meta-item">
-                                        <span class="span">${game.genre}</span>
-                                    </div>
-                                </div>
-                                <p class="card-text">${game.description}</p>
-                            </div>
-                            <div class="card-badge">
-                                <button class="btn card-badge-btn has-before" data-game-cta="${game.title}">
-                                    ${game.cta_text}
-                                </button>
-                                <a href="#" class="card-badge-btn has-before read-more-btn">Read More</a>
-                            </div>
-                        </div>
-                    </li>
-                `;
-            });
+				htmlContent += `
+					<li class="scrollbar-item">
+						<div class="game-card custom-game-card"> 
+							
+							<figure class="card-banner img-holder" style="--width: 450; --height: 600;">
+								<img src="${game.image}" width="450" height="600" loading="lazy" alt="${game.title}"
+									class="img-cover">
+							</figure>
+							
+							<div class="card-info-strip">
+								<div class="card-meta">
+									<div class="meta-top">
+										 <h4 class="h4">
+											<a href="#" class="card-title">${game.title}</a>
+										 </h4>
+										 <p class="card-genre">${game.genre}</p>
+									</div>
+									<div class="meta-bottom">
+										<button class="btn card-badge-btn has-before" data-game-cta="${game.title}">
+											${game.cta_text}
+										</button>
+										<span class="card-category">${game.category}</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</li>
+				`;
+			});
 
             // إدخال المحتوى الديناميكي في الصفحة
             container.innerHTML = `<ul class="has-scrollbar">${htmlContent}</ul>`;

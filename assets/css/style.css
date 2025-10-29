@@ -716,57 +716,101 @@ body {
 
 .featured-game .has-scrollbar { gap: 0; }
 
-.featured-game-card { position: relative; }
-
+/* قم بإلغاء أو حذف التنسيقات التالية التي تتعارض مع التصميم الجديد */
+/*
 .featured-game-card :is(.card-content, .card-content-overlay) { position: absolute; }
+.featured-game-card .card-content { ... }
+.featured-game-card .card-content-overlay { ... }
+...الخ
+*/
 
-.featured-game-card .card-content {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 30px 35px;
-  transition: var(--transition);
+/* ************************************************* */
+/* ب. إضافة التنسيقات الجديدة (الشكل المطابق للصورة) */
+/* ************************************************* */
+
+.custom-game-card {
+    /* نضمن أن الشكل الجديد لا يحتوي على تداخل */
+    position: relative;
+    box-shadow: none; /* إزالة الظل إذا كان غير مرغوب فيه */
 }
 
-.featured-game-card .card-content-overlay {
-  inset: 0;
-  background-color: var(--marigold_75);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: var(--transition);
+.custom-game-card .card-banner {
+    /* هنا لا حاجة لتغيير أي شيء، الصورة ستبقى في مكانها */
 }
 
-.featured-game-card .card-title { margin-block-end: 5px; }
-
-.featured-game-card .card-meta {
-  color: var(--white);
-  font-size: var(--fs-11);
-  font-weight: var(--fw-500);
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+/* التنسيق الرئيسي للشريط السفلي */
+.card-info-strip {
+    background-color: var(--raisin-black-3); /* لون خلفية الشريط (غامق) */
+    padding: 15px 20px;
+    border-top: 3px solid var(--marigold); /* الشريط الذهبي العلوي */
+    text-align: left;
 }
 
-.featured-game-card .card-content .card-meta { color: var(--platinum); }
-
-.featured-game-card .card-content ion-icon {
-  color: var(--marigold);
-  font-size: 14px;
+.card-info-strip .card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* فاصل بين القسم العلوي والسفلي */
 }
 
-.featured-game-card .card-icon { margin-block-end: 20px; }
+.card-info-strip .meta-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--white_10); /* فاصل رقيق */
+    padding-bottom: 10px;
+}
 
-.featured-game-card .card-content-overlay .card-title { color: var(--xiketic); }
+.card-info-strip .card-title {
+    color: var(--white);
+    font-size: var(--fs-7); /* حجم مناسب للعنوان */
+    font-weight: var(--fw-700);
+    text-transform: uppercase;
+}
 
-.featured-game-card .card-content-overlay .span { color: var(--white); }
+.card-info-strip .card-genre {
+    color: var(--roman-silver); /* لون رمادي فاتح لنوع اللعبة */
+    font-size: var(--fs-9);
+    font-weight: var(--fw-500);
+}
 
-.featured-game-card:is(:hover, :focus-within) .card-content { opacity: 0; }
+.card-info-strip .meta-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-.featured-game-card:is(:hover, :focus-within) .card-content-overlay { opacity: 1; }
+.card-info-strip .card-badge-btn {
+    /* تنسيق زر الـ CTA */
+    min-height: 40px;
+    padding-inline: 20px;
+    font-size: var(--fs-10);
+}
+
+.card-info-strip .card-category {
+    /* تنسيق فئة اللعبة */
+    color: var(--marigold);
+    font-size: var(--fs-10);
+    font-weight: var(--fw-600);
+}
+
+/* ************************************************* */
+/* C. إصلاح مشكلة التوسيع في الشريط */
+/* ************************************************* */
+
+/* بما أنك تستخدم `has-scrollbar`، تأكد أن عرض العناصر داخلها صحيح */
+@media (min-width: 992px) {
+    .scrollbar-item { 
+        /* هذا سيجعلها تتناسب 3 عناصر في العرض على الشاشات الكبيرة */
+        min-width: calc(33.33% - 20px); 
+    }
+}
+
+@media (min-width: 1200px) {
+    .scrollbar-item { 
+        /* هذا سيجعلها تتناسب 4 عناصر في العرض على الشاشات الكبيرة جداً */
+        min-width: calc(25% - 22.5px); 
+    }
+}
 
 
 

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamics Admin Panel</title>
+  <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+  
+  <div id="login-container" class="login-wrapper">
+    <div class="login-box">
+      <h1>Gamics Admin</h1>
+      <p class="login-subtitle">Content Management System</p>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div id="login-error" class="error-message"></div>
+        <button type="submit" class="btn-primary">Login</button>
+      </form>
+      <p class="login-hint">Default: admin / admin123</p>
+    </div>
+  </div>
+
+  <div id="admin-container" class="admin-wrapper" style="display: none;">
+    
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h2>Gamics</h2>
+        <p class="admin-user">Admin Panel</p>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#" data-page="dashboard" class="nav-link active">
+          <span class="icon">📊</span> Dashboard
+        </a></li>
+        <li><a href="#" data-page="games" class="nav-link">
+          <span class="icon">🎮</span> Games
+        </a></li>
+        <li><a href="#" data-page="content" class="nav-link">
+          <span class="icon">📝</span> Site Content
+        </a></li>
+        <li><a href="#" id="logout-btn" class="nav-link logout">
+          <span class="icon">🚪</span> Logout
+        </a></li>
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      <div class="page-header">
+        <h1 id="page-title">Dashboard</h1>
+        <div class="header-actions">
+          <span class="user-info">👤 <span id="current-user"></span></span>
+        </div>
+      </div>
+
+      <div id="dashboard-page" class="page-content">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🎮</div>
+            <div class="stat-info">
+              <h3 id="total-games">0</h3>
+              <p>Total Games</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-info">
+              <h3 id="total-content">5</h3>
+              <p>Content Items</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⏰</div>
+            <div class="stat-info">
+              <h3 id="last-updated">Just now</h3>
+              <p>Last Updated</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="quick-actions">
+          <h2>Quick Actions</h2>
+          <div class="action-buttons">
+            <button class="btn-action" onclick="navigateTo('games')">
+              <span class="icon">➕</span> Add New Game
+            </button>
+            <button class="btn-action" onclick="navigateTo('content')">
+              <span class="icon">✏️</span> Edit Site Content
+            </button>
+            <button class="btn-action" onclick="window.open('/', '_blank')">
+              <span class="icon">👁️</span> View Website
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="games-page" class="page-content" style="display: none;">
+        <div class="page-actions">
+          <button class="btn-primary" id="add-game-btn">
+            <span class="icon">➕</span> Add New Game
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Category</th>
+                <th>CTA</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="games-table-body">
+              <tr>
+                <td colspan="6" class="loading">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="content-page" class="page-content" style="display: none;">
+        <div class="content-editor">
+          <h2>Site Content Settings</h2>
+          <p class="page-description">Edit your website content without touching code. Changes take effect immediately.</p>
+          
+          <form id="content-form" class="content-form">
+            <div class="form-group">
+              <label for="hero_subtitle">Hero Subtitle</label>
+              <input type="text" id="hero_subtitle" name="hero_subtitle" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="hero_title">Hero Title</label>
+              <input type="text" id="hero_title" name="hero_title" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="hero_description">Hero Description</label>
+              <textarea id="hero_description" name="hero_description" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="countdown_days">Countdown Days</label>
+              <input type="text" id="countdown_days" name="countdown_days" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="site_title">Site Title</label>
+              <input type="text" id="site_title" name="site_title" class="form-control">
+            </div>
+
+            <button type="submit" class="btn-primary">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="game-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Add New Game</h2>
+        <button class="modal-close" id="close-modal">&times;</button>
+      </div>
+      <form id="game-form" enctype="multipart/form-data">
+        <input type="hidden" id="game-id" name="game_id">
+        <input type="hidden" id="existing-image" name="existing_image">
+        
+        <div class="form-group">
+          <label for="game-title">Game Title *</label>
+          <input type="text" id="game-title" name="title" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="game-genre">Genre *</label>
+          <input type="text" id="game-genre" name="genre" class="form-control" placeholder="e.g., RPG / FPS" required>
+        </div>
+
+        <div class="form-group">
+          <label for="game-description">Description *</label>
+          <textarea id="game-description" name="description" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="game-category">Category *</label>
+          <input type="text" id="game-category" name="category" class="form-control" placeholder="e.g., New Release, Exclusive" required>
+        </div>
+
+        <div class="form-group">
+          <label for="game-cta">Call to Action Text *</label>
+          <input type="text" id="game-cta" name="cta_text" class="form-control" placeholder="e.g., DOWNLOAD, VIEW OFFER" required>
+        </div>
+
+        <div class="form-group">
+          <label for="game-image">Game Image</label>
+          <input type="file" id="game-image" name="image" class="form-control" accept="image/*">
+          <small>Leave empty to keep current image (when editing)</small>
+          <div id="current-image-preview" class="image-preview"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="cancel-modal">Cancel</button>
+          <button type="submit" class="btn-primary">Save Game</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="./admin.js"></script>
+</body>
+</html>
